@@ -1,0 +1,31 @@
+string FirstNonRepeating(string A){
+		    // Code here
+		    queue<char>st;
+		    int arr[26]={0};
+		    arr[A[0]-97]++;
+		    st.push(A[0]);
+		    for(int i=1;i<A.size();i++){
+		        int n=A[i]-97;
+		        arr[n]++;
+		        if(arr[n]==1)
+		        st.push(A[i]);
+		        char fro=st.front();
+		        if(arr[fro-97]==1)
+		        A[i]=fro;
+		        else{
+		            while(!st.empty()){
+		                if(arr[st.front()-97]==1)
+		                break;
+		                st.pop();
+		            }
+		            if(st.empty())
+		            A[i]='#';
+		            if(arr[st.front()-97]==1)
+		            A[i]=st.front();
+		        }
+		        if(st.empty())
+		        A[i]='#';
+		        
+		    }
+		    return A;
+		}
