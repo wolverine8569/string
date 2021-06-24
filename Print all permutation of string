@@ -1,0 +1,29 @@
+ void fn(string s,vector<string>&v,vector<bool>&ch,string temp){
+	        if(temp.length()==s.length())
+	        {
+	            v.push_back(temp);
+	            return;
+	        }
+	        for(int i=0;i<s.length();i++){
+	            if(ch[i])
+	            {
+	                ch[i]=false;
+	                temp+=s[i];
+	                fn(s,v,ch,temp);
+	                ch[i]=true;
+	                temp.resize(temp.size()-1);
+	            }
+	        }
+	    }
+		vector<string>find_permutation(string S)
+		{
+		    // Code here there
+		    vector<string>v;
+		    vector<bool>ch(S.size(),true);
+		    string temp="";
+		    fn(S,v,ch,temp);
+		    sort(v.begin(),v.end(),[](string &a,string &b){
+		        return a<b;
+		        });
+		    return v;
+		}
