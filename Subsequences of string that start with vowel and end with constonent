@@ -1,0 +1,18 @@
+void fn(string input,string output,set<string>&st,set<char>&vo){
+        if(input.empty()){
+            
+            if(output.length()>0 && vo.find(output[0])!=vo.end() && vo.find(output[output.length()-1])==vo.end())
+            st.insert(output);
+            return;
+        }
+        fn(input.substr(1),output+input[0],st,vo);
+        fn(input.substr(1),output,st,vo);
+    }
+    set<string> allPossibleSubsequences(string S) {
+        set<string>st;
+        set<char>vo;
+        vo.insert('a');vo.insert('e');vo.insert('i');vo.insert('o');vo.insert('u');
+        string out="";
+        fn(S,out,st,vo);
+        return st;
+    }
