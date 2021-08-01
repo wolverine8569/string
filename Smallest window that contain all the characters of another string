@@ -1,0 +1,33 @@
+string smallestWindow (string s, string p)
+    {
+        // Your code here
+        int m=p.length(),n=s.length();
+        if(m>n)
+        return "-1";
+        int mp1[256]={0},mp2[256]={0};
+        for(auto i:p)
+        mp1[i]++;
+        int stind=-1;
+        int start=0,count=0,len=INT_MAX;
+        for(int i=0;i<n;i++){
+            mp2[s[i]]++;
+            if(mp2[s[i]]<=mp1[s[i]])
+            count++;
+            if(count==m){
+                while(mp2[s[start]]>mp1[s[start]] || mp1[s[start]]==0)
+                {
+                    if(mp2[s[start]]>mp1[s[start]])
+                    mp2[s[start]]--;
+                    start++;
+                }
+               if(len>(i-start+1))
+               {
+                   len=(i-start+1);
+                   stind=start;
+                }
+            }
+        }
+        if(stind==-1)
+        return "-1";
+        return s.substr(stind,len);
+    }
