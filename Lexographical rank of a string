@@ -1,0 +1,29 @@
+int findRank(string S) 
+    {
+        //Your code here
+        int n=S.size();
+        long long mod=1000000007;
+        int fact[27];
+        fact[0]=1;fact[1]=1;
+        for(int i=2;i<27;i++)
+        fact[i]=((fact[i-1]%mod)*i)%mod;
+        vector<int>arr(256,0);
+        for(int i=0;i<n;i++)
+        {
+            if(arr[S[i]]!=0)
+            return 0;
+            else
+            arr[S[i]]++;
+        }
+        for(int i=1;i<256;i++)
+        arr[i]+=arr[i-1];
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            int temp=((arr[S[i]-1]%mod)*(fact[n-i-1]%mod))%mod;
+            ans=((ans%mod)+(temp%mod))%mod;
+            for(int j=S[i];j<256;j++)
+            arr[j]--;
+        }
+        return ans+1;
+    }
