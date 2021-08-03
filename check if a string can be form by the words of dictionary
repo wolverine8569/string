@@ -1,0 +1,23 @@
+bool helper(string A,int pos,unordered_map<int,bool>&mp2,unordered_map<string,bool>&mp1){
+       if(pos==A.size())
+       return true;
+       if(mp2[pos]==true)
+       return mp2[pos];
+       for(int i=pos;i<A.size();i++){
+           if(mp1[A.substr(pos,i-pos+1)] and helper(A,i+1,mp2,mp1))
+           {
+               mp2[pos]=true;
+           return true;
+           }
+       }
+       mp2[pos]=false;
+       return false;
+   }
+    int wordBreak(string A, vector<string> &B) {
+        //code here
+        unordered_map<string,bool>mp1;
+        unordered_map<int,bool>mp2;
+        for(auto i:B)
+        mp1[i]=true;
+        return helper(A,0,mp2,mp1);
+    }
